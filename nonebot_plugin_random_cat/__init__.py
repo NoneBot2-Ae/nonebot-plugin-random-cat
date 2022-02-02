@@ -18,7 +18,7 @@ config: Config = Config.parse_obj(global_config.dict())
 scheduler = require("nonebot_plugin_apscheduler").scheduler
 
 rcat = on_regex(
-    r"^(rcat|来点猫猫)\s?(r18)?\s?(.*)?",
+    r"^(rcat|来点猫猫)(.*)?",
     flags=I,
     permission=PRIVATE_FRIEND | GROUP,
 )
@@ -30,9 +30,6 @@ async def rcat_handle(bot: Bot, event: Event, state: T_State = State()):
             event,
             GroupMessageEvent) and event.group_id not in config.enable_groups:
         return
-    args = list(state["_matched_groups"])
-    args1 = args[1]
-    args2 = args[2]
 
     pic = await get_cat()
     if pic[0]:
@@ -68,7 +65,7 @@ async def rcat_task(text):
 
 
 rdog = on_regex(
-    r"^(rdog|来点狗狗)",
+    r"^(rdog|来点狗狗)(.*)?",
     flags=I,
     permission=PRIVATE_FRIEND | GROUP,
 )
